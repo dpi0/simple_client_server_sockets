@@ -4,26 +4,26 @@ import threading
 
 
 SERVER_IP = gethostbyname(gethostname())
-PORT = 6969
+PORT_USED = 6969
 
-ADDRESS = (SERVER_IP, PORT)
+ADDRESS = (SERVER_IP, PORT_USED)
 
 server = socket(AF_INET, SOCK_STREAM)
 # IPV4 and TCP based server
 
 
-with server as s:
-    s.bind(ADDRESS)
+with server:
+    server.bind(ADDRESS)
 
-    s.listen()
+    server.listen()
     # enables a server to accept connections. It makes the server a “listening” socket
     # NOTE: can take a param int "backlog"
     # specifies the number of unaccepted connections that the system will allow before
     # refusing new connections
 
-    print(f"Listening at {SERVER_IP}:{PORT}")
+    print(f"Listening at {SERVER_IP}:{PORT_USED}")
 
-    connection, address_info = s.accept()
+    connection, address_info = server.accept()
     # blocks execution and waits for an incoming connection
     # client connects, it returns a new socket object
     # with connection and the address of the client
